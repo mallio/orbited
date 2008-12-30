@@ -22,9 +22,9 @@ Currently, this plugin only supports the STOMP protocol, but I hope to add suppo
 
 ## Requirements
 
-* [Python 2.5](http://www.python.org/) or greater
-* [Twisted](http://twistedmatrix.com/trac/)
-* [Orbited](http://orbited.org)
+* [Python 2.5][2] or greater
+* [Twisted][3]
+* [Orbited][4]
 * The STOMP gem
 * Prototype
 * and of course, Ruby on Rails
@@ -33,9 +33,9 @@ Currently, this plugin only supports the STOMP protocol, but I hope to add suppo
 
 ### Prerequisites
 
-Installation instructions for the first few requirements can be found on the [Orbited installation page](http://orbited.org/wiki/Installation).
+Installation instructions for the first few requirements can be found on the [Orbited installation page][5].
 
-Install the STOMP gem with <code>gem install stomp</code>.
+Install the STOMP gem with `gem install stomp`.
 
 ### Plugin
 
@@ -44,11 +44,11 @@ To install this plugin, type
 	cd your/rails/app
 	script/plugin install git://github.com/mallio/orbited
 
-This will create an orbited.yml file in your config directory. 
+This will create an `orbited.yml` file in your config directory. 
 
 ## Configuration
 
-Open config/orbited.yml in your text editor of choice. Reasonable defaults have been chosen.
+Open `config/orbited.yml` in your text editor of choice. Reasonable defaults have been chosen.
 
 Basic settings:
 * `host` and `port`: These fields tell your application where the Orbited server is running 
@@ -56,22 +56,22 @@ Basic settings:
 * `stomp_host` and `stomp_port`: The location of your STOMP server
 
 Configuration settings used to generate the Orbited config file:
-* `reactor`: Which Twisted reactor to use. Possible values are 'select', 'epoll', and 'kqueue'. Select is the only one that will work in Windows. [More info...](http://orbited.org/wiki/Configuration#reactor)
+* `reactor`: Which Twisted reactor to use. Possible values are 'select', 'epoll', and 'kqueue'. Select is the only one that will work in Windows. [More info...][7]
 * `morbidq`: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convienient for development.
 * `restrict_access`: Make the Orbited server only proxy requests to the STOMP server when the request comes from the host and port specified for the Orbited server.
 
-Once you are happy with the settings in orbited.yml, type
+Once you are happy with the settings in `orbited.yml`, type
 
 	script/generate orbited_config
 
-This will generate config/orbited.cfg. If you wish, you can further configure your Orbited server by editting this file, but if you run the generator again,
-your changes will be overwritten. For possible options, see the [Orbited configuration page](http://orbited.org/wiki/Configuration).
+This will generate `config/orbited.cfg`. If you wish, you can further configure your Orbited server by editting this file, but if you run the generator again,
+your changes will be overwritten. For possible options, see the [Orbited configuration page][6].
 
 ## Usage
 
 Now that everything is set up, you can have Orbited running with your app in just a few steps. 
 
-In the &lt;head&gt; of the view you want to use Orbited in, add the following lines:
+In the `<head>` of the view you want to use Orbited in, add the following lines:
 
 	<%= orbited_javascript %>
 	<%= stomp_connect('hello') %>
@@ -100,9 +100,16 @@ subscribed to the 'hello' channel.
 ## Special notes for Production
 
 You will need to edit your orbited.yml file to reflect the actual host that the orbited server will run on. Also, you should also find a more production
-ready STOMP server, as the built in MorbidQ was developed to be easy, not scalable. They list alternatives on [their website](http://morbidq.com/). Also,
+ready STOMP server, as the built in MorbidQ was developed to be easy, not scalable. They list alternatives on [their website][8]. Also,
 to generate the configuration file from your production settings in orbited.yml, type
 
 	script/generate orbited_config production
 
 [1]: http://en.wikipedia.org/wiki/Comet_(programming)
+[2]: http://www.python.org/
+[3]: http://twistedmatrix.com/trac/
+[4]: http://orbited.org
+[5]: http://orbited.org/wiki/Installation
+[6]: http://orbited.org/wiki/Configuration
+[7]: http://orbited.org/wiki/Configuration#reactor
+[8]: http://morbidq.com/
