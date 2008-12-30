@@ -39,6 +39,7 @@ private
   <<-EOS
     Orbited.settings.hostname = '#{OrbitedConfig.host}';
     Orbited.settings.port = '#{OrbitedConfig.port}';
+    Orbited.settings.streaming = true;
     TCPSocket = Orbited.TCPSocket;
   EOS
   end
