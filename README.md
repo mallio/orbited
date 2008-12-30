@@ -2,9 +2,10 @@
 
 Orbited on Rails is a plugin that makes it easy for your Rails application to use Comet to push changes to your users.
 
-[Comet](http://en.wikipedia.org/wiki/Comet_(programming)), also known as Reverse Ajax and server push (among other nicknames),
+[Comet][comet], also known as Reverse Ajax and server push (among other nicknames),
 is a method of pushing data to your users without polling. [Orbited](htttp://orbited.org) is one implementation of this
 method that uses a Python push server that can interact with a number of messaging protocols such as STOMP, IRC, and XMPP.
+[comet]: http://en.wikipedia.org/wiki/Comet_(programming)
 
 Traditionally, when web devolopers have a need to broadcast any data to people currently using the site, such as people
 using a chat interface, they would use polling. Each client browser would, after a certain interval, send a request
@@ -21,12 +22,12 @@ Currently, this plugin only supports the STOMP protocol, but I hope to add suppo
 
 ## Requirements
 
-* [Python 2.5](http://www.python.org/) or greater
-* [Twisted](http://twistedmatrix.com/trac/)
-* [Orbited](http://orbited.org)
-* The STOMP gem
-* Prototype
-* and of course, Ruby on Rails
+- [Python 2.5](http://www.python.org/) or greater
+- [Twisted](http://twistedmatrix.com/trac/)
+- [Orbited](http://orbited.org)
+- The STOMP gem
+- Prototype
+- and of course, Ruby on Rails
 
 ## Installation
 
@@ -51,14 +52,14 @@ This will create an orbited.yml file in your config directory.
 Open config/orbited.yml in your text editor of choice. Reasonable defaults have been chosen.
 
 Basic settings:
-* __host__ and __port__: These fields tell your application where the Orbited server is running 
-* __protocol__: The messaging protocol you web application should use. Currently, the only supported value is 'stomp'
-* __stomp_host__ and __stomp_port__: The location of your STOMP server
+- **host** and **port**: These fields tell your application where the Orbited server is running 
+- **protocol**: The messaging protocol you web application should use. Currently, the only supported value is 'stomp'
+- **stomp_host** and **stomp_port**: The location of your STOMP server
 
 Configuration settings used to generate the Orbited config file:
-* __reactor__: Which Twisted reactor to use. Possible values are 'select', 'epoll', and 'kqueue'. Select is the only one that will work in Windows. [More info...](http://orbited.org/wiki/Configuration#reactor)
-* __morbidq__: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convienient for development.
-* __restrict_access__: Make the Orbited server only proxy requests to the STOMP server when the request comes from the host and port specified for the Orbited server.
+- **reactor**: Which Twisted reactor to use. Possible values are 'select', 'epoll', and 'kqueue'. Select is the only one that will work in Windows. [More info...](http://orbited.org/wiki/Configuration#reactor)
+- **morbidq**: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convienient for development.
+- **restrict_access**: Make the Orbited server only proxy requests to the STOMP server when the request comes from the host and port specified for the Orbited server.
 
 Once you are happy with the settings in orbited.yml, type
 
@@ -73,7 +74,7 @@ your changes will be overwritten. For possible options, see the [Orbited configu
 
 Now that everything is set up, you can have Orbited running with your app in just a few steps. 
 
-In the <code><head></code> of the view you want to use Orbited in, add the following lines:
+In the &lt;head&gt; of the view you want to use Orbited in, add the following lines:
 
 <pre><code>
 <%= orbited_javascript %>
