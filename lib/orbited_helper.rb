@@ -1,6 +1,9 @@
-
+# A few view helpers to generate the necessary javascript to get
+# connected to the Orbited server
 module OrbitedHelper
   
+  # Includes the necessary javascript files from the Orbited server (Orbited.js and stomp.js)
+  # This should be called after prototype.js is included
   def orbited_javascript
     js = javascript_include_tag orbited_js
     js += javascript_tag initialize_js
@@ -8,6 +11,7 @@ module OrbitedHelper
     js
   end
   
+  # Connects to the the STOMP server and subscribes to _channel_
   def stomp_connect(channel, callbacks = {})
     js = "Element.observe(window, 'load', function(){"
     js += "document.domain = document.domain; "
