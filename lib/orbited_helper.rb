@@ -11,13 +11,15 @@ module OrbitedHelper
     js
   end
   
-  # Connects to the the STOMP server and subscribes to _channel_
-  def stomp_connect(channel, callbacks = {})
+  # Connects to the the STOMP server and subscribes to each channel in channels
+  def stomp_connect(channels, callbacks = {})
+    channels = [channels] unless channels.is_a? Array
+    subscriptions = channels.map {|channel| "stomp.subscribe('#{channel}')"}.join(';')
     js = "Element.observe(window, 'load', function(){"
     js += "document.domain = document.domain; "
     js += "stomp = new STOMPClient(); "
     js += "stomp.onmessageframe = function(frame) {eval(frame.body)}; " unless callbacks[:onmessageframe]
-    js += "stomp.onconnectedframe = function(frame) {stomp.subscribe('#{channel}')}; " unless callbacks[:onconnectedframe]
+    js += "stomp.onconnectedframe = function(frame) {#{subscriptions}}; " unless callbacks[:onconnectedframe]
     callbacks.each do |callback, function|
       js += "stomp.#{callback} = #{function}; "
     end
