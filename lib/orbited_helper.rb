@@ -12,9 +12,10 @@ module OrbitedHelper
   end
   
   # Connects to the the STOMP server and subscribes to each channel in channels
-  def stomp_connect(channels, callbacks = {})
+  def stomp_connect(channels, options = {})
+    callbacks = options[:callbacks] || {}
     channels = [channels] unless channels.is_a? Array
-    subscriptions = channels.map {|channel| "stomp.subscribe('#{channel}')"}.join(';')
+    subscriptions = channels.map {|channel| "stomp.subscribe('/topic/#{channel}')"}.join(';')
     js = "Element.observe(window, 'load', function(){"
     js += "document.domain = document.domain; "
     js += "stomp = new STOMPClient(); "
@@ -23,7 +24,9 @@ module OrbitedHelper
     callbacks.each do |callback, function|
       js += "stomp.#{callback} = #{function}; "
     end
-    js += "stomp.connect('#{OrbitedConfig.stomp_host}', #{OrbitedConfig.stomp_port});"
+    user = options[:user] || OrbitedConfig.stomp_user || ''
+    password = options[:password] || OrbitedConfig.stomp_password || ''
+    js += "stomp.connect('#{OrbitedConfig.stomp_host}', #{OrbitedConfig.stomp_port}, '#{user}', '#{password}');"
     js += "});"
     javascript_tag js
   end
