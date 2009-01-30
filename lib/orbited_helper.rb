@@ -26,14 +26,18 @@ module OrbitedHelper
     end
     user = options[:user] || OrbitedConfig.stomp_user || ''
     password = options[:password] || OrbitedConfig.stomp_password || ''
-    js += "stomp.connect('#{OrbitedConfig.stomp_host}', #{OrbitedConfig.stomp_port}, '#{user}', '#{password}');"
+    host = request.ssl? ? OrbitedConfig.ssl_stomp_host : OrbitedConfig.stomp_host
+    port = request.ssl? ? OrbitedConfig.ssl_stomp_port : OrbitedConfig.stomp_port
+    js += "stomp.connect('#{host}', #{port}, '#{user}', '#{password}');"
     js += "});"
     javascript_tag js
   end
   
 private
   def orbited_server_url
-    "http://#{OrbitedConfig.host}:#{OrbitedConfig.port}"
+    request.ssl? ? 
+      "https://#{OrbitedConfig.ssl_host}:#{OrbitedConfig.ssl_port}" :
+      "http://#{OrbitedConfig.host}:#{OrbitedConfig.port}"
   end
 
   def orbited_js
@@ -46,8 +50,8 @@ private
   
   def initialize_js
   <<-EOS
-    Orbited.settings.hostname = '#{OrbitedConfig.host}';
-    Orbited.settings.port = '#{OrbitedConfig.port}';
+    Orbited.settings.hostname = '#{request.ssl? ? OrbitedConfig.ssl_host : OrbitedConfig.host}';
+    Orbited.settings.port = '#{request.ssl? ? OrbitedConfig.ssl_port : OrbitedConfig.port}';
     Orbited.settings.streaming = true;
     TCPSocket = Orbited.TCPSocket;
   EOS
