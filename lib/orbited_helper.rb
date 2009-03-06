@@ -28,7 +28,12 @@ module OrbitedHelper
     password = options[:password] || OrbitedConfig.stomp_password || ''
     host = OrbitedConfig.stomp_host
     port = OrbitedConfig.stomp_port
-    js += "stomp.connect('#{host}', #{port}, '#{user}', '#{password}'); "
+    stomp_connect = "stomp.connect('#{host}', #{port}, '#{user}', '#{password}'); "
+    if options[:delayed_connect]
+      js += "stomp.delayedConnect = function() {#{stomp_connect}};"
+    else
+      js += stomp_connect
+    end
     js += "Element.observe(window, 'beforeunload', function(){stomp.reset()});"
     js += "});"
     javascript_tag js
