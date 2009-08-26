@@ -51,6 +51,7 @@ This will create an `orbited.yml` file in your config directory.
 Open `config/orbited.yml` in your text editor of choice. Reasonable defaults have been chosen.
 
 Basic settings:
+
 * `host` and `port`: These fields tell your application where the Orbited server is running 
 * `protocol`: The messaging protocol you web application should use. Currently, the only supported value is `stomp`
 * `stomp_host` and `stomp_port`: The location of your STOMP server
@@ -58,6 +59,7 @@ Basic settings:
 * `version`: Will be added to the end of included js files. Change this any time you upgrade your orbited version to force browsers to reload the files
 
 Configuration settings used to generate the Orbited config file:
+
 * `reactor`: Which Twisted reactor to use. Possible values are `select`, `epoll`, and `kqueue`. `select` is the only one that will work in Windows. [More info...][7]
 * `morbidq`: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convienient for development.
 * `restrict_access`: Make the Orbited server only proxy requests to the STOMP server when the request comes from the host and port specified for the Orbited server.
