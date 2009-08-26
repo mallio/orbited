@@ -5,7 +5,8 @@ module OrbitedHelper
   # Includes the necessary javascript files from the Orbited server (Orbited.js and stomp.js)
   # This should be called after prototype.js is included
   def orbited_javascript
-    js = javascript_include_tag orbited_js
+    js = javascript_tag "document.domain = document.domain;"
+    js += javascript_include_tag orbited_js
     js += javascript_tag initialize_js
     js += javascript_include_tag protocol_js
     js
@@ -73,11 +74,11 @@ private
   end
 
   def orbited_js
-    orbited_server_url + '/static/Orbited.js'
+    "#{orbited_server_url}/static/Orbited.js?#{OrbitedConfig.version}"
   end
 
   def protocol_js
-    orbited_server_url + "/static/protocols/#{OrbitedConfig.protocol}/#{OrbitedConfig.protocol}.js"
+    "#{orbited_server_url}/static/protocols/#{OrbitedConfig.protocol}/#{OrbitedConfig.protocol}.js?#{OrbitedConfig.version}"
   end
 
   def initialize_js
