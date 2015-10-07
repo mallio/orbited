@@ -61,7 +61,7 @@ Basic settings:
 Configuration settings used to generate the Orbited config file:
 
 * `reactor`: Which Twisted reactor to use. Possible values are `select`, `epoll`, and `kqueue`. `select` is the only one that will work in Windows. [More info...][7]
-* `morbidq`: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convienient for development.
+* `morbidq`: Tells the Orbited server to use its built in MorbidQ STOMP server. This is not reccomended for production, but is convenient for development.
 * `restrict_access`: Make the Orbited server only proxy requests to the STOMP server when the request comes from the host and port specified for the Orbited server.
 * `ssl_enabled`: 1 to enable ssl. You will need the below fields to do so.
 * `ssl_port`: Which port to use for the ssl server
